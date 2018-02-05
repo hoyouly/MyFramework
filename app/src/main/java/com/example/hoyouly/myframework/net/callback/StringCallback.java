@@ -9,7 +9,7 @@ import com.example.hoyouly.myframework.utils.TextUtil;
 public abstract class StringCallback extends AbstractCallback {
 
     @Override
-    protected Object bindData(String content) {
+    protected String bindData(String content) {
         if(TextUtil.isValidate(path)){
             return  IOUtilities.readFromFile(path);
         }

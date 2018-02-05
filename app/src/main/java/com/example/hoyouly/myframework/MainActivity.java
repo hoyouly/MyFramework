@@ -7,11 +7,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.hoyouly.myframework.entity.Entity;
 import com.example.hoyouly.myframework.net.Request;
+import com.example.hoyouly.myframework.net.callback.JsonCallback;
 import com.example.hoyouly.myframework.net.callback.StringCallback;
 import com.example.hoyouly.myframework.test.UrlHelper;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
+import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
@@ -38,6 +42,31 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         }
     }
+
+
+    private void requestJson(){
+        Request request=new Request(UrlHelper.test_String_url, Request.RequestMethod.GET);
+        request.setCallback(new JsonCallback() {
+            @Override
+            public void onFailure(Exception result) {
+
+            }
+
+            @Override
+            public void onSuccess(Object result) {
+               ArrayList<Entity> entities= (ArrayList<Entity>) result;
+                for (Entity entity:entities){
+
+                }
+            }
+        }.setReturnType(new TypeToken<ArrayList<Entity>>(){}.getType()));
+
+
+
+
+
+    }
+
 
     private void requestString() {
         String path= Environment.getExternalStorageDirectory().getAbsolutePath()+ File.pathSeparator+System.currentTimeMillis()+".txt";

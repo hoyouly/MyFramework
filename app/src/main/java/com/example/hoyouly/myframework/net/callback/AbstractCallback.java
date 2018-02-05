@@ -11,6 +11,7 @@ import org.apache.http.util.EntityUtils;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.zip.DeflaterInputStream;
 import java.util.zip.GZIPInputStream;
 
@@ -18,11 +19,13 @@ import java.util.zip.GZIPInputStream;
  * Created by hoyouly on 15/5/3.
  * 数据解析的工具类
  */
-public abstract  class AbstractCallback implements ICallback {
+public abstract  class AbstractCallback<T> implements ICallback<T> {
     private static final int IO_BUFFER_SIZE = 1024*6;
     public String path;//用来存储文件的位置
+    public Class<T> mReturnClass;
+    public Type mReturnType;
 
-    public  Object handle(HttpResponse response){
+    public  T handle(HttpResponse response){
         HttpEntity entity=response.getEntity();
         try {
             switch (response.getStatusLine().getStatusCode()){
@@ -69,8 +72,16 @@ public abstract  class AbstractCallback implements ICallback {
 
     }
 
-    public AbstractCallback setPath(String path) {
+    public AbstractCallback<T> setPath(String path) {
         this.path = path;
+        return  this;
+    }
+    public AbstractCallback<T> setReturnClass(Class<T> clz) {
+        this.mReturnClass=clz;
+        return  this;
+    }
+    public AbstractCallback<T> setReturnType(Type type) {
+        this.mReturnType=type;
         return  this;
     }
 
@@ -78,9 +89,8 @@ public abstract  class AbstractCallback implements ICallback {
      * 解析服务器返回的数据
      * @param content
      */
-    protected Object bindData(String content){
-
-        return content;
+    protected T bindData(String content){
+        return null;
     }
 
 }

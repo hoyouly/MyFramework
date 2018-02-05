@@ -5,11 +5,11 @@ import org.apache.http.HttpResponse;
 /**
  * Created by hoyouly on 15/5/3.
  */
-public interface ICallback {
+public interface ICallback<T> {
 
     void onFailure(Exception result);
 
-    void onSuccess(Object result);
+    void onSuccess(T result);
 
-    Object handle(HttpResponse response);
+    T handle(HttpResponse response);
 }
