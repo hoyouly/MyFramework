@@ -10,3 +10,17 @@
 import-summary.txt
 app/build/
 app/app.iml
+
+*.iml
+
+.idea/gradle.xml
+
+.idea/gradle.xml
+
+.idea/misc.xml
+
+.idea/vcs.xml
+
+app/app.iml
+
+MyFramework.iml
