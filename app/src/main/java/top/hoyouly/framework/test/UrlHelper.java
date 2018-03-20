@@ -1,4 +1,4 @@
-package com.example.hoyouly.myframework.test;
+package top.hoyouly.framework.test;
 
 /**
  * Created by hoyouly on 15/5/4.

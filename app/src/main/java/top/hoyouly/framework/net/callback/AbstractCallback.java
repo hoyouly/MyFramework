@@ -1,7 +1,7 @@
-package com.example.hoyouly.myframework.net.callback;
+package top.hoyouly.framework.net.callback;
 
-import com.example.hoyouly.myframework.net.inter.ICallback;
-import com.example.hoyouly.myframework.utils.TextUtil;
+import top.hoyouly.framework.net.inter.ICallback;
+import top.hoyouly.framework.utils.TextUtil;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

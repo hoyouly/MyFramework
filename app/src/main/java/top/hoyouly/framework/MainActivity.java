@@ -1,24 +1,25 @@
-package com.example.hoyouly.myframework;
+package top.hoyouly.framework;
 
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.hoyouly.myframework.entity.Entity;
-import com.example.hoyouly.myframework.net.Request;
-import com.example.hoyouly.myframework.net.callback.JsonCallback;
-import com.example.hoyouly.myframework.net.callback.StringCallback;
-import com.example.hoyouly.myframework.test.UrlHelper;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.util.ArrayList;
 
+import top.hoyouly.framework.base.BaseActivity;
+import top.hoyouly.framework.entity.Entity;
+import top.hoyouly.framework.net.Request;
+import top.hoyouly.framework.net.callback.JsonCallback;
+import top.hoyouly.framework.net.callback.StringCallback;
+import top.hoyouly.framework.test.UrlHelper;
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private Button btn;
     private TextView content;
@@ -60,10 +61,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 }
             }
         }.setReturnType(new TypeToken<ArrayList<Entity>>(){}.getType()));
-
-
-
-
 
     }
 

@@ -1,6 +1,6 @@
-package com.example.hoyouly.myframework.net;
+package top.hoyouly.framework.net;
 
-import com.example.hoyouly.myframework.net.inter.ICallback;
+import top.hoyouly.framework.net.inter.ICallback;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;

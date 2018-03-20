@@ -1,6 +1,6 @@
-package com.example.hoyouly.myframework.net.callback;
+package top.hoyouly.framework.net.callback;
 
-import com.example.hoyouly.myframework.utils.JsonParser;
+import top.hoyouly.framework.utils.JsonParser;
 
 /**
  * Created by hoyouly on 15/5/3.

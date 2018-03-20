@@ -1,4 +1,4 @@
-package com.example.hoyouly.myframework.utils;
+package top.hoyouly.framework.utils;
 
 /**
  * Created by hoyouly on 15/5/3.

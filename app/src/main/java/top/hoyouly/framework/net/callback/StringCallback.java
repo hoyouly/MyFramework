@@ -1,7 +1,7 @@
-package com.example.hoyouly.myframework.net.callback;
+package top.hoyouly.framework.net.callback;
 
-import com.example.hoyouly.myframework.utils.IOUtilities;
-import com.example.hoyouly.myframework.utils.TextUtil;
+import top.hoyouly.framework.utils.IOUtilities;
+import top.hoyouly.framework.utils.TextUtil;
 
 /**
  * Created by hoyouly on 15/5/3.

@@ -1,4 +1,4 @@
-package com.example.hoyouly.myframework.entity;
+package top.hoyouly.framework.entity;
 
 import java.util.List;
 

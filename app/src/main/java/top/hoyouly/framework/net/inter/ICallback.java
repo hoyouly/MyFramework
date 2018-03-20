@@ -1,4 +1,4 @@
-package com.example.hoyouly.myframework.net.inter;
+package top.hoyouly.framework.net.inter;
 
 import org.apache.http.HttpResponse;
 
