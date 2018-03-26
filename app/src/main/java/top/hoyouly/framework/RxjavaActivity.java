@@ -1,7 +1,6 @@
 package top.hoyouly.framework;
 
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -15,7 +14,6 @@ import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.exceptions.Exceptions;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -36,7 +34,7 @@ public class RxjavaActivity extends BaseActivity {
 		setContentView(R.layout.activity_rxjava);
 		imageView= (ImageView) findViewById(R.id.btn);
 		imgResId=R.mipmap.ic_launcher;
-		new AlertDialog.Builder(this).setIcon().setTitle();
+//		new AlertDialog.Builder(this).setIcon().setTitle();
 
 
 //		Observer<String> observer = new Observer<String>() {
@@ -254,12 +252,12 @@ public class RxjavaActivity extends BaseActivity {
 				.subscribe(coursesSubscriber);
 
 
-		Observable<Student> stu=new Observable<Student>(new Observable.OnSubscribe<Student>(){
-			@Override
-			public void call(Subscriber<? super Student> subscriber) {
-
-			}
-		});
+//		Observable<Student> stu=new Observable<Student>(new Observable.OnSubscribe<Student>(){
+//			@Override
+//			public void call(Subscriber<? super Student> subscriber) {
+//
+//			}
+//		});
 
 		final Subscriber<String> stringSubscriber=new Subscriber<String>() {
 			@Override
@@ -291,7 +289,7 @@ public class RxjavaActivity extends BaseActivity {
 
 			@Override
 			public void onNext(Student student) {
-				stringSubscriber.onNext();
+//				stringSubscriber.onNext();
 			}
 		};
 
