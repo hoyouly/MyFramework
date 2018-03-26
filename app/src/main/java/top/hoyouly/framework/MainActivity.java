@@ -6,6 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.IOException;
+
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,8 +77,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 	}
 
 	private void postRequest() {
+//		HttpLoggingInterceptor httpLoggingInterceptor=new HttpLoggingInterceptor();
+//		httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+		LogInterceptor logInterceptor=new LogInterceptor();
+
+		OkHttpClient okHttpClient=new OkHttpClient.Builder()
+				.addInterceptor(logInterceptor)//添加拦截
+				.build();
+
 		Retrofit retrofit=new Retrofit.Builder()//
 				.baseUrl("http://fanyi.youdao.com/")//
+				.client(okHttpClient)//
 				.addConverterFactory(GsonConverterFactory.create())//
 				.build();
 
@@ -93,6 +108,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 		});
 	}
 	private void postRequestByRxjava() {
+
 		Retrofit retrofit=new Retrofit.Builder()//
 				.baseUrl("http://fanyi.youdao.com/")//
 				.addConverterFactory(GsonConverterFactory.create())//
@@ -164,10 +180,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 			@Override
 			public void onNext(MovieObject movieObject) {
 				Log.e("hoyouly", "onResponse: " + movieObject.title + "  currentThread:  " + Thread.currentThread());
-				Log.e("hoyouly", "onResponse: " + movieObject.subjects.toString());
+				android.util.Log.e("hoyouly", "onResponse: " + movieObject.subjects.toString());
 			}
 		});
 
+	}
+
+	private class LogInterceptor implements Interceptor{
+		@Override
+		public okhttp3.Response intercept(Chain chain) throws IOException {
+			Request request = chain.request();
+			long t1 = System.nanoTime();
+			Log.d("hoyouly", "HttpHelper1" + String.format("Sending request %s on %s%n%s", request.url(), chain.connection(), request.headers()));
+
+			okhttp3.Response response = chain.proceed(request);
+			long t2 = System.nanoTime();
+
+			Log.d("hoyouly", "HttpHelper2" + String.format("Received response for %s in %.1fms%n%s", response.request().url(), (t2 - t1) / 1e6d, response.headers()));
+			return response;
+		}
 	}
 
 }
