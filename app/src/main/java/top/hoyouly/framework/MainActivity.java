@@ -6,8 +6,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
+import okhttp3.Cache;
+import okhttp3.CacheControl;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -76,14 +83,68 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 		});
 	}
 
+	public Interceptor getCacheInterceptor(){
+	    Interceptor cacheInterceptor= new Interceptor() {
+            @Override
+            public okhttp3.Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+                if (!NetworkUtils.isConnected()) {
+                    //无网络下强制使用缓存，无论缓存是否过期,此时该请求实际上不会被发送出去。
+                    request = request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();
+                }
+                okhttp3.Response response = chain.proceed(request);
+                if (NetworkUtils.isConnected()) {//有网络情况下，根据请求接口的设置，配置缓存。
+                    //这样在下次请求时，根据缓存决定是否真正发出请求。
+                    String cacheControl = request.cacheControl().toString();
+                    //当然如果你想在有网络的情况下都直接走网络，那么只需要
+                    //将其超时时间这是为0即可:String cacheControl="Cache-Control:public,max-age=0"
+                    int maxAge = 60 * 60; // read from cache for 1 minute
+                    return response.newBuilder()
+//                            .header("Cache-Control", cacheControl)
+                            .header("Cache-Control", "public, max-age=" + maxAge)
+                            .removeHeader("Pragma")
+                            .build();
+                } else {
+                    //无网络
+                    int maxStale = 60 * 60 * 24 * 28; // tolerate 4-weeks stale
+                    return response.newBuilder()
+//                            .header("Cache-Control", "public,only-if-cached,max-stale=360000")
+                            .header("Cache-Control", "public,only-if-cached,max-stale=" + maxStale)
+                            .removeHeader("Pragma")
+                            .build();
+                }
+                return response;
+            }
+        };
+	    return  cacheInterceptor;
+    }
+
+
 	private void postRequest() {
 //		HttpLoggingInterceptor httpLoggingInterceptor=new HttpLoggingInterceptor();
 //		httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
+
+
 		LogInterceptor logInterceptor=new LogInterceptor();
+        File httpCacheDirectory=new File(getCacheDir(),"OkHttpCache");
+        Cache cache=new Cache(httpCacheDirectory,10*1024*1024);
 
 		OkHttpClient okHttpClient=new OkHttpClient.Builder()
-				.addInterceptor(logInterceptor)//添加拦截
+				.addNetworkInterceptor(getCacheInterceptor())//添加拦截
+                .addInterceptor(getCacheInterceptor())
+                .cache(cache)////设置缓存
+                .cookieJar(new CookieJar() {
+                    @Override
+                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+                        
+                    }
+
+                    @Override
+                    public List<Cookie> loadForRequest(HttpUrl url) {
+                        return null;
+                    }
+                })
 				.build();
 
 		Retrofit retrofit=new Retrofit.Builder()//
@@ -103,8 +164,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 			@Override
 			public void onFailure(Call<Translation1> call, Throwable t) {
-
-			}
+                Log.e("hoyouly", getClass().getSimpleName() + " -> onFailure: " + t.getMessage());
+            }
 		});
 	}
 	private void postRequestByRxjava() {
@@ -145,7 +206,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 			case R.id.btn:
 //				testRxJavaRetrofit();
 				postRequest();
-				postRequestByRxjava();
+//				postRequestByRxjava();
 				break;
 		}
 	}
@@ -191,12 +252,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 		public okhttp3.Response intercept(Chain chain) throws IOException {
 			Request request = chain.request();
 			long t1 = System.nanoTime();
-			Log.d("hoyouly", "HttpHelper1" + String.format("Sending request %s on %s%n%s", request.url(), chain.connection(), request.headers()));
+			Log.d("hoyouly", "LogInterceptor start" + String.format("Sending request %s on %s%n%s", request.url(), chain.connection(), request.headers()));
 
 			okhttp3.Response response = chain.proceed(request);
 			long t2 = System.nanoTime();
 
-			Log.d("hoyouly", "HttpHelper2" + String.format("Received response for %s in %.1fms%n%s", response.request().url(), (t2 - t1) / 1e6d, response.headers()));
+			Log.d("hoyouly", "LogInterceptor end " + String.format("Received response for %s in %.1fms%n%s", response.request().url(), (t2 - t1) / 1e6d, response.headers()));
 			return response;
 		}
 	}
