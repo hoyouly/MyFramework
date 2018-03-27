@@ -20,7 +20,7 @@ import top.hoyouly.framework.entity.Translation1;
  * Created by hoyouly on 18/3/19.
  */
 
-public interface MovieService {
+public interface MovieService  {
     ////获取豆瓣Top250 榜单
     @GET("top250") //标签后面是这个接口的 尾址top250,完整的地址应该是 baseUrl+尾址
     //参数 使用@Query标签，如果参数多的话可以用@QueryMap标签，接收一个Map
@@ -52,5 +52,8 @@ public interface MovieService {
     Observable<Translation1> getCallByRxJava(@Field("i") String targetSentence);
 
 
+     @POST("/x3/weather")
+    @FormUrlEncoded
+    Observable<String> getWeather(@Field("cityid") String cityid,@Field("key") String key);
 
 }
