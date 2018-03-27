@@ -1,6 +1,8 @@
 package top.hoyouly.framework.inter;
 
 
+import java.util.List;
+
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -13,8 +15,10 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
 import rx.Observable;
+import top.hoyouly.framework.entity.Movie;
 import top.hoyouly.framework.entity.MovieObject;
 import top.hoyouly.framework.entity.Translation1;
+import top.hoyouly.framework.net.BaseResponse;
 
 /**
  * Created by hoyouly on 18/3/19.
@@ -35,7 +39,9 @@ public interface MovieService  {
     Call<MovieObject> getTop250ByPost(@Field("start") int start, @Field("count") int count);
 
     @GET("top250")
-    Observable<MovieObject> getTop250WithRxJava(@Query("start") int start,@Query("count") int count);
+    Observable<MovieObject> getTop250WithRxJava1(@Query("start") int start,@Query("count") int count);
+
+    Observable<BaseResponse<List<Movie>>> getTop250WithRxJava2(@Query("start") int start, @Query("count") int count);
 
 
     @POST("/from")

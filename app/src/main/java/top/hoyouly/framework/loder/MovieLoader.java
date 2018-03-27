@@ -8,6 +8,7 @@ import top.hoyouly.framework.entity.Movie;
 import top.hoyouly.framework.entity.MovieObject;
 import top.hoyouly.framework.inter.MovieService;
 import top.hoyouly.framework.net.ObjectLoader;
+import top.hoyouly.framework.net.PayLoad;
 import top.hoyouly.framework.net.RetrofitServiceManager;
 
 /**
@@ -18,28 +19,33 @@ public class MovieLoader extends ObjectLoader {
 	private MovieService movieService;
 
 	public MovieLoader() {
-		movieService= RetrofitServiceManager.getInstance().creat(MovieService.class);
+		movieService = RetrofitServiceManager.getInstance().creat(MovieService.class);
 	}
 
-	public Observable<List<Movie>> getMovie(int start,int count){
-		Observable<List<Movie>> movieObservable = movieService.getTop250WithRxJava(start, count).map(new Func1<MovieObject, List<Movie>>() {
+	public Observable<List<Movie>> getMovie(int start, int count) {
+		Observable<List<Movie>> movieObservable = movieService.getTop250WithRxJava1(start, count).map(new Func1<MovieObject, List<Movie>>() {
 			@Override
 			public List<Movie> call(MovieObject movieObject) {
-				return null;
+				return movieObject.subjects;
 			}
 		});
 		return observe(movieObservable);
-
 	}
 
-	public Observable<String> getWeather(String cityid,String key){
-		return observe(movieService.getWeather(cityid,key).map(new Func1<String, String>() {
+	public Observable<List<Movie>> getMovie2(int start, int count) {
+		Observable<List<Movie>> movieObservable = movieService.getTop250WithRxJava2(start, count).map(new PayLoad<List<Movie>>());
+		return observe(movieObservable);
+	}
+
+	public Observable<String> getWeather(String cityid, String key) {
+		return observe(movieService.getWeather(cityid, key).map(new Func1<String, String>() {
 			@Override
 			public String call(String s) {
 				return s;
 			}
 		}));
+	}
 
-	};
+	;
 
 }
