@@ -23,6 +23,7 @@ public class MovieLoader extends ObjectLoader {
 	}
 
 	public Observable<List<Movie>> getMovie(int start, int count) {
+
 		Observable<List<Movie>> movieObservable = movieService.getTop250WithRxJava1(start, count).map(new Func1<MovieObject, List<Movie>>() {
 			@Override
 			public List<Movie> call(MovieObject movieObject) {

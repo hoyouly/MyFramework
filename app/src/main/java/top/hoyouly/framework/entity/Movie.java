@@ -18,16 +18,25 @@ public class Movie {
 		public float average;
 		public String stars;
 		public int min;
+
 	}
 
 	public static class MovieImage{
 		public String small;
 		public String large;
 		public String medium;
+
 	}
 
 	@Override
 	public String toString() {
-		return "Movie{" + "title='" + title + '\'' + ", subtype='" + subtype + '\'' +  '}';
+		final StringBuilder sb = new StringBuilder("{");
+		sb.append("\"title\":\"").append(title).append('\"');
+		sb.append(",\"collect_count\":\"").append(collect_count).append('\"');
+		sb.append(",\"original_title\":\"").append(original_title).append('\"');
+		sb.append(",\"subtype\":\"").append(subtype).append('\"');
+		sb.append(",\"year\":\"").append(year).append('\"');
+		sb.append('}');
+		return sb.toString();
 	}
 }

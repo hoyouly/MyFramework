@@ -15,7 +15,7 @@ public class RetrofitServiceManager {
 	private static final int DEFAULT_TIME_OUT = 5;// 超时时间5秒
 	private static final int DEFAULT_READ_TIME_OUT = 10;
 	private Retrofit retrofit;
-	private static String BASE_URL = "";
+	public static final String BASE_URL = "https://api.douban.com/v2/movie/";
 
 	public RetrofitServiceManager() {
 

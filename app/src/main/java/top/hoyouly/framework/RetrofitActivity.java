@@ -6,14 +6,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import top.hoyouly.framework.base.BaseActivity;
+import top.hoyouly.framework.entity.Movie;
 import top.hoyouly.framework.entity.MovieObject;
 import top.hoyouly.framework.inter.MovieService;
+import top.hoyouly.framework.inter.SubscriberOnNextListener;
+import top.hoyouly.framework.loder.MovieLoader;
 
 
 public class RetrofitActivity extends BaseActivity implements View.OnClickListener {
@@ -22,6 +27,7 @@ public class RetrofitActivity extends BaseActivity implements View.OnClickListen
     private TextView content;
     public static final String BASE_URL = "https://api.douban.com/v2/movie/";
     private static final String tag = "MainActivity";
+    private MovieLoader movieLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +37,9 @@ public class RetrofitActivity extends BaseActivity implements View.OnClickListen
         btn.setText("Retrofit");
         content= (TextView) findViewById(R.id.content);
         btn.setOnClickListener(this);
+        movieLoader=new MovieLoader();
+
+//        ProgressDialog.show(this, "标题", "加载中，请稍后……");
         //同步请求  这里需要注意的是网络请求一定要在子线程中完成，不能直接在UI线程执行，不然会crash
 //        try {
 //            Response<MovieObject> response=call.execute();
@@ -39,6 +48,18 @@ public class RetrofitActivity extends BaseActivity implements View.OnClickListen
 //        }
         simpleGetRequest();
 
+
+
+    }
+    private void getMovieList(){
+        SubscriberOnNextListener<List<Movie>> onNextListener=new SubscriberOnNextListener<List<Movie>>() {
+            @Override
+            public void onNext(List<Movie> movies) {
+//                Log.d("hoyouly", getClass().getSimpleName() + " -> onNext: "+movies.toString());
+            }
+        };
+        movieLoader.getMovie(0,10)//
+                .subscribe(new ProgressDialogSubscriber<List<Movie>>(onNextListener,RetrofitActivity.this));
     }
 
     private void getRequest() {
@@ -77,7 +98,8 @@ public class RetrofitActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn:
-                getRequest();
+//                getRequest();
+                getMovieList();
                 break;
 
         }

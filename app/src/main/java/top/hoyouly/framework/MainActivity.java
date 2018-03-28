@@ -223,7 +223,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 		//调用方法得到一个call  Call其实在Retrofit中就是行使网络请求并处理返回值的类，
 		// 调用的时候会把需要拼接的参数传递进去，此处最后得到的url完整地址为https://api.douban.com/v2/movie/top250
 
-		Subscription subscriber=movieService.getTop250WithRxJava(0,20)
+		Subscription subscriber=movieService.getTop250WithRxJava1(0,20)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(new Subscriber<MovieObject>() {
