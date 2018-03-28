@@ -1,4 +1,4 @@
-package top.hoyouly.framework;
+package top.hoyouly.framework.subscriber;
 
 import android.content.Context;
 import android.util.Log;

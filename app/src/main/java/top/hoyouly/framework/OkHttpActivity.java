@@ -22,15 +22,13 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.BufferedSink;
 import top.hoyouly.framework.base.BaseActivity;
+import top.hoyouly.framework.config.ApiConfig;
 
 
 public class OkHttpActivity extends BaseActivity implements View.OnClickListener {
 
-    public static final String BAIDU_URL = "http://www.baidu.com";
     private Button btn;
     private TextView content;
-    public static final String BASE_URL = "https://api.douban.com/v2/movie/";
-    private static final String tag = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +70,7 @@ public class OkHttpActivity extends BaseActivity implements View.OnClickListener
         String jsonStr = "{\"username\":\"lisi\",\"nickname\":\"李四\"}";//json数据.
         RequestBody requestBody=RequestBody.create(mediaType,jsonStr);
         Request request=new Request.Builder()//创建Request对象
-                .url(BAIDU_URL)//设置URL
+                .url(ApiConfig.DOUBAN_MOVIE_URL)//设置URL
                 .post(requestBody)//传递请求体
                 .build();
 
@@ -153,7 +151,7 @@ public class OkHttpActivity extends BaseActivity implements View.OnClickListener
                 try {
                     OkHttpClient okHttpClient = new OkHttpClient();//创建OkHttpClient对象
                     Request request = new Request.Builder()//
-                            .url(BAIDU_URL)//请求接口，如果需要传递参数，拼接到后面
+                            .url(ApiConfig.DOUBAN_MOVIE_URL)//请求接口，如果需要传递参数，拼接到后面
                             .build();//创建Request对象
                     Response response = null;
                     response = okHttpClient.newCall(request).execute();

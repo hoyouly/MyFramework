@@ -18,8 +18,8 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import top.hoyouly.framework.base.BaseActivity;
-import top.hoyouly.framework.entity.Courses;
-import top.hoyouly.framework.entity.Student;
+import top.hoyouly.framework.bean.Courses;
+import top.hoyouly.framework.bean.Student;
 
 /**
  * Created by hoyouly on 18/3/22.

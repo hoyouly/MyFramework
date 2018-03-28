@@ -14,19 +14,19 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import top.hoyouly.framework.base.BaseActivity;
+import top.hoyouly.framework.config.ApiConfig;
 import top.hoyouly.framework.entity.Movie;
 import top.hoyouly.framework.entity.MovieObject;
 import top.hoyouly.framework.inter.MovieService;
 import top.hoyouly.framework.inter.SubscriberOnNextListener;
 import top.hoyouly.framework.loder.MovieLoader;
+import top.hoyouly.framework.subscriber.ProgressDialogSubscriber;
 
 
 public class RetrofitActivity extends BaseActivity implements View.OnClickListener {
 
     private Button btn;
     private TextView content;
-    public static final String BASE_URL = "https://api.douban.com/v2/movie/";
-    private static final String tag = "MainActivity";
     private MovieLoader movieLoader;
 
     @Override
@@ -63,7 +63,7 @@ public class RetrofitActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void getRequest() {
-        Retrofit retrofit=new Retrofit.Builder().baseUrl(BASE_URL)//
+        Retrofit retrofit=new Retrofit.Builder().baseUrl(ApiConfig.DOUBAN_MOVIE_URL)//
                 //表示需要用什么转换器来解析返回值
                 .addConverterFactory(GsonConverterFactory.create())//GsonConverterFactory 是默认提供的Gson 转换器，Retrofit 也支持其他的一些转换器
                 .build();

@@ -6,6 +6,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import top.hoyouly.framework.config.ApiConfig;
 
 /**
  * Created by hoyouly on 18-3-27.
@@ -15,7 +16,6 @@ public class RetrofitServiceManager {
 	private static final int DEFAULT_TIME_OUT = 5;// 超时时间5秒
 	private static final int DEFAULT_READ_TIME_OUT = 10;
 	private Retrofit retrofit;
-	public static final String BASE_URL = "https://api.douban.com/v2/movie/";
 
 	public RetrofitServiceManager() {
 
@@ -34,7 +34,7 @@ public class RetrofitServiceManager {
 		retrofit = new Retrofit.Builder()//
 				.addCallAdapterFactory(RxJavaCallAdapterFactory.create())//
 				.addConverterFactory(GsonConverterFactory.create())//
-				.baseUrl(BASE_URL)//
+				.baseUrl(ApiConfig.DOUBAN_BASE_URL)//
 				.client(builder.build())//
 				.build();
 

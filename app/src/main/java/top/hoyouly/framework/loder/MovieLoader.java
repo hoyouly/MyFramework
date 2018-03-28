@@ -7,15 +7,15 @@ import rx.functions.Func1;
 import top.hoyouly.framework.entity.Movie;
 import top.hoyouly.framework.entity.MovieObject;
 import top.hoyouly.framework.inter.MovieService;
-import top.hoyouly.framework.net.ObjectLoader;
 import top.hoyouly.framework.net.PayLoad;
 import top.hoyouly.framework.net.RetrofitServiceManager;
+import top.hoyouly.framework.base.BaseLoader;
 
 /**
  * Created by hoyouly on 18-3-27.
  */
 
-public class MovieLoader extends ObjectLoader {
+public class MovieLoader extends BaseLoader {
 	private MovieService movieService;
 
 	public MovieLoader() {

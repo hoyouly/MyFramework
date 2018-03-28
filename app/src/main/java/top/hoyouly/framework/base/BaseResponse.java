@@ -1,4 +1,4 @@
-package top.hoyouly.framework.net;
+package top.hoyouly.framework.base;
 
 /**
  * Created by hoyouly on 18-3-27.

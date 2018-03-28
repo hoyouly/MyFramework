@@ -29,9 +29,12 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import top.hoyouly.framework.base.BaseActivity;
-import top.hoyouly.framework.entity.MovieObject;
-import top.hoyouly.framework.entity.Translation1;
+import top.hoyouly.framework.bean.Book;
+import top.hoyouly.framework.bean.MovieObject;
+import top.hoyouly.framework.bean.Translation1;
 import top.hoyouly.framework.inter.MovieService;
+import top.hoyouly.framework.presenter.BookPresenter;
+import top.hoyouly.framework.view.BookView;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -40,6 +43,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 	private TextView content;
 	public static final String BASE_URL = "https://api.douban.com/v2/movie/";
 	private static final String tag = "MainActivity";
+	private BookPresenter bookPresenter;
+
+	private BookView bookView=new BookView() {
+        @Override
+        public void onSuccess(Book book) {
+            content.setText(book.toString());
+        }
+
+        @Override
+        public void onError() {
+            Log.d("hoyouly", "onError: ");
+        }
+    };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +64,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 		btn = (Button) findViewById(R.id.btn);
 		content = (TextView) findViewById(R.id.content);
 		btn.setOnClickListener(this);
+
+		bookPresenter=new BookPresenter();
+		bookPresenter.onCreat();
+		bookPresenter.attchView(bookView);
 
 //		FormBody.Builder builder=new FormBody.Builder();
 //		builder.add("key","value");
@@ -204,8 +224,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 		switch (view.getId()) {
 			case R.id.btn:
 //				testRxJavaRetrofit();
-				postRequest();
+//				postRequest();
 //				postRequestByRxjava();
+                bookPresenter.getSearchBook("金瓶梅", null, 0, 1);
 				break;
 		}
 	}
@@ -261,4 +282,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 		}
 	}
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        bookPresenter.onStop();
+    }
 }

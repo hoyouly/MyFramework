@@ -15,9 +15,9 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
 import rx.Observable;
-import top.hoyouly.framework.entity.Movie;
-import top.hoyouly.framework.entity.MovieObject;
-import top.hoyouly.framework.entity.Translation1;
+import top.hoyouly.framework.bean.Movie;
+import top.hoyouly.framework.bean.MovieObject;
+import top.hoyouly.framework.bean.Translation1;
 import top.hoyouly.framework.net.BaseResponse;
 
 /**
@@ -30,7 +30,6 @@ public interface MovieService  {
     //参数 使用@Query标签，如果参数多的话可以用@QueryMap标签，接收一个Map
     //@Query表示请求参数，将会以key=value的方式拼接在url后面
     Call<MovieObject> getTop250(@Query("start") int start, @Query("count") int count);
-
 
 
     @FormUrlEncoded  //必须加上 @FormUrlEncoded标签，否则会抛异常
