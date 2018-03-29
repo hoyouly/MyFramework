@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
         <!--
             取一个name,并将她的type指向一个Bean，这样就可以绑定该对象了，
             使用的时候，通过@{}格将该对象的属性绑定到控件中式-->
+        <import alias="Stu" type="top.hoyouly.framework.bean.Student"/>
         <variable
             name="student"
-            type="top.hoyouly.framework.bean.Student"/>
-
+            type="Stu"/>
         <variable
             name="controller"
             type="top.hoyouly.framework.mv.StudentActivity.Controller"/>
-        
+
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,30 +21,38 @@
         android:orientation="vertical">
 
         <EditText
-            android:onTextChanged="@{controller.onTextChanged}"
             android:id="@+id/et_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:onTextChanged="@{controller.onChanged}"/>
 
         <EditText
             android:id="@+id/et_nickName"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"/>
 
         <!--@{student.name} 把Student中names属性的值设置给tv_name -->
         <TextView
-            android:onClick="@{controller.onClick}"
             android:id="@+id/tv_name"
-            android:text="@{student.name}"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@{student.age>30?0xFF0000FF:0xFFFF0000}"
+            android:onClick="@{controller.onClicked}"
+            android:text="@{`中文: `+student.name??student.nickName}"/>
 
         <!--@{student.nickName} 把Student中nickName属性的值设置给 tv_nickName -->
         <TextView
             android:id="@+id/tv_nickName"
-            android:text="@{student.nickName}"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:onClick="@{()->controller.onClickListener(student)}"
+            android:text="@{student.nickName}"/>
+
+        <ImageView
+            android:id="@+id/iv"
+            app:userface="@{student.userface}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

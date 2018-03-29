@@ -195,7 +195,7 @@ public class RxjavaActivity extends BaseActivity {
 		Func1<Student, String> func1 = new Func1<Student, String>() {
 			@Override
 			public String call(Student student) {
-				return student.getName();
+				return student.name;
 			}
 		};
 
@@ -219,7 +219,7 @@ public class RxjavaActivity extends BaseActivity {
 			@Override
 			public void onNext(Student student) {
 				//得到的是学生信息，然后通过for循环打印课程
-				for (Courses courses:student.getCourses()) {
+				for (Courses courses:student.courses) {
 					Log.d("hoyouly", getClass().getSimpleName() + " -> onNext: "+courses.toString());
 				}
 			}
@@ -246,7 +246,7 @@ public class RxjavaActivity extends BaseActivity {
 				.flatMap(new Func1<Student, Observable<Courses>>() {
 					@Override
 					public Observable<Courses> call(Student student) {
-						return Observable.from(student.getCourses());
+						return Observable.from(student.courses);
 					}
 				})//
 				.subscribe(coursesSubscriber);
