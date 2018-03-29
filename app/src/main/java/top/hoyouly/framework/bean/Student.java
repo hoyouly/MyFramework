@@ -7,8 +7,17 @@ import java.util.List;
  */
 
 public class Student {
-	private String name;
-	private List<Courses> courses;
+	public String name;
+	public String nickName;
+	public List<Courses> courses;
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 
 	public String getName() {
 		return name;

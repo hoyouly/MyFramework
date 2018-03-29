@@ -18,7 +18,7 @@ import rx.Observable;
 import top.hoyouly.framework.base.BaseResponse;
 import top.hoyouly.framework.bean.Movie;
 import top.hoyouly.framework.bean.MovieObject;
-import top.hoyouly.framework.bean.Translation1;
+import top.hoyouly.framework.bean.Translation;
 
 /**
  * Created by hoyouly on 18/3/19.
@@ -50,11 +50,11 @@ public interface MovieService  {
 
     @POST("translate?doctype=json&jsonversion=&type=&keyfrom=&model=&mid=&imei=&vendor=&screen=&ssid=&network=&abtest=")
     @FormUrlEncoded
-    Call<Translation1> getCall(@Field("i") String targetSentence);
+    Call<Translation> getCall(@Field("i") String targetSentence);
 
      @POST("translate?doctype=json&jsonversion=&type=&keyfrom=&model=&mid=&imei=&vendor=&screen=&ssid=&network=&abtest=")
     @FormUrlEncoded
-    Observable<Translation1> getCallByRxJava(@Field("i") String targetSentence);
+    Observable<Translation> getCallByRxJava(@Field("i") String targetSentence);
 
 
      @POST("/x3/weather")

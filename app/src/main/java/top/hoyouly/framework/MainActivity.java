@@ -31,7 +31,7 @@ import rx.schedulers.Schedulers;
 import top.hoyouly.framework.base.BaseActivity;
 import top.hoyouly.framework.bean.Book;
 import top.hoyouly.framework.bean.MovieObject;
-import top.hoyouly.framework.bean.Translation1;
+import top.hoyouly.framework.bean.Translation;
 import top.hoyouly.framework.inter.MovieService;
 import top.hoyouly.framework.presenter.BookPresenter;
 import top.hoyouly.framework.view.BookView;
@@ -173,16 +173,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 				.build();
 
 		MovieService service=retrofit.create(MovieService.class);
-		Call<Translation1> call=service.getCall("I love you");
-		call.enqueue(new Callback<Translation1>() {
+		Call<Translation> call=service.getCall("I love you");
+		call.enqueue(new Callback<Translation>() {
 			@Override
-			public void onResponse(Call<Translation1> call, Response<Translation1> response) {
+			public void onResponse(Call<Translation> call, Response<Translation> response) {
 				Log.d("hoyouly", getClass().getSimpleName() + " -> onResponse:currentThread  "+Thread.currentThread());
 				Log.d("hoyouly", getClass().getSimpleName() + " -> onResponse: "+response.body().getTranslateResult().get(0).get(0).getTgt());
 			}
 
 			@Override
-			public void onFailure(Call<Translation1> call, Throwable t) {
+			public void onFailure(Call<Translation> call, Throwable t) {
                 Log.e("hoyouly", getClass().getSimpleName() + " -> onFailure: " + t.getMessage());
             }
 		});
@@ -199,7 +199,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 		service.getCallByRxJava("hello world").subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(new Observer<Translation1>() {
+				.subscribe(new Observer<Translation>() {
 					@Override
 					public void onCompleted() {
 					}
@@ -210,10 +210,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 					}
 
 					@Override
-					public void onNext(Translation1 translation1) {
+					public void onNext(Translation translation) {
 						Log.d("hoyouly", getClass().getSimpleName() + " -> onNext:currentThread  "+Thread.currentThread());
 
-						Log.d("hoyouly", getClass().getSimpleName() + " -> onNext: "+translation1.getTranslateResult().get(0).get(0).getTgt());
+						Log.d("hoyouly", getClass().getSimpleName() + " -> onNext: "+ translation.getTranslateResult().get(0).get(0).getTgt());
 					}
 				});
 	}

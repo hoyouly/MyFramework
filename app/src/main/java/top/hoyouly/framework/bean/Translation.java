@@ -6,7 +6,7 @@ import java.util.List;
  * Created by hoyouly on 18-3-26.
  */
 
-public class Translation1 {
+public class Translation {
 
 	private String type;
 	private int errorCode;
