@@ -1,6 +1,7 @@
 package top.hoyouly.framework.net;
 
 import rx.functions.Func1;
+import top.hoyouly.framework.base.BaseResponse;
 
 /**
  * Created by hoyouly on 18-3-27.

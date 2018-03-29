@@ -2,7 +2,7 @@ package top.hoyouly.framework.loder;
 
 import rx.Observable;
 import top.hoyouly.framework.base.BaseLoader;
-import top.hoyouly.framework.entity.Book;
+import top.hoyouly.framework.bean.Book;
 import top.hoyouly.framework.inter.BookService;
 import top.hoyouly.framework.net.RetrofitServiceManager;
 

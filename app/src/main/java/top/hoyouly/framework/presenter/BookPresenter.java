@@ -5,10 +5,10 @@ import android.content.Intent;
 import rx.Observer;
 import rx.subscriptions.CompositeSubscription;
 import top.hoyouly.framework.base.BasePresenter;
-import top.hoyouly.framework.entity.Book;
+import top.hoyouly.framework.base.BaseView;
+import top.hoyouly.framework.bean.Book;
 import top.hoyouly.framework.loder.BookLoader;
 import top.hoyouly.framework.view.BookView;
-import top.hoyouly.framework.base.BaseView;
 
 /**
  * Created by hoyouly on 18/3/28.

@@ -4,12 +4,12 @@ import java.util.List;
 
 import rx.Observable;
 import rx.functions.Func1;
-import top.hoyouly.framework.entity.Movie;
-import top.hoyouly.framework.entity.MovieObject;
+import top.hoyouly.framework.base.BaseLoader;
+import top.hoyouly.framework.bean.Movie;
+import top.hoyouly.framework.bean.MovieObject;
 import top.hoyouly.framework.inter.MovieService;
 import top.hoyouly.framework.net.PayLoad;
 import top.hoyouly.framework.net.RetrofitServiceManager;
-import top.hoyouly.framework.base.BaseLoader;
 
 /**
  * Created by hoyouly on 18-3-27.

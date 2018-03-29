@@ -3,7 +3,7 @@ package top.hoyouly.framework.inter;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
-import top.hoyouly.framework.entity.Book;
+import top.hoyouly.framework.bean.Book;
 
 /**
  * Created by hoyouly on 18/3/28.

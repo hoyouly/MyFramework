@@ -15,10 +15,10 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
 import rx.Observable;
+import top.hoyouly.framework.base.BaseResponse;
 import top.hoyouly.framework.bean.Movie;
 import top.hoyouly.framework.bean.MovieObject;
 import top.hoyouly.framework.bean.Translation1;
-import top.hoyouly.framework.net.BaseResponse;
 
 /**
  * Created by hoyouly on 18/3/19.
