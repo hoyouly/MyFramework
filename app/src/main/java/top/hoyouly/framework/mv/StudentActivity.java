@@ -10,7 +10,7 @@ import java.util.List;
 
 import top.hoyouly.framework.BR;
 import top.hoyouly.framework.R;
-import top.hoyouly.framework.adapter.MyBaseAdapter;
+import top.hoyouly.framework.adapter.BaseLvAdapter;
 import top.hoyouly.framework.bean.BenefitBean;
 import top.hoyouly.framework.bean.GankBean;
 import top.hoyouly.framework.bean.Student;
@@ -32,7 +32,7 @@ public class StudentActivity extends BaseBindingActivity<ActivityStudentBinding>
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            MyBaseAdapter<BenefitBean> adapter = new MyBaseAdapter<>(StudentActivity.this, R.layout.listview_item, benefitBeans, BR.benefit);//是BR中的，这个BR和我们项目中的R文件类似，都是系统自动生成的。
+            BaseLvAdapter<BenefitBean> adapter = new BaseLvAdapter<>(StudentActivity.this, R.layout.listview_item, benefitBeans, BR.benefit);//是BR中的，这个BR和我们项目中的R文件类似，都是系统自动生成的。
             mBinding.lv.setAdapter(adapter);
         }
     };

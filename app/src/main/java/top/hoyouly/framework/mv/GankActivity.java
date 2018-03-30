@@ -5,7 +5,7 @@ import java.util.List;
 
 import top.hoyouly.framework.BR;
 import top.hoyouly.framework.R;
-import top.hoyouly.framework.adapter.MyBaseAdapter;
+import top.hoyouly.framework.adapter.BaseLvAdapter;
 import top.hoyouly.framework.bean.BenefitBean;
 import top.hoyouly.framework.bean.GankBean;
 import top.hoyouly.framework.databinding.ActivityGankBinding;
@@ -20,7 +20,7 @@ import top.hoyouly.framework.subscriber.ProgressDialogSubscriber;
 public class GankActivity extends BaseBindingActivity<ActivityGankBinding> {
     private List<BenefitBean> benefitBeans=new ArrayList<BenefitBean>();
     private GankLoader loader;
-    private MyBaseAdapter<BenefitBean> adapter;
+    private BaseLvAdapter<BenefitBean> adapter;
 
     @Override
     protected void initView() {
@@ -30,7 +30,7 @@ public class GankActivity extends BaseBindingActivity<ActivityGankBinding> {
 
     private void initData() {
         loader=new GankLoader();
-        adapter = new MyBaseAdapter<>(GankActivity.this, R.layout.listview_item, benefitBeans, BR.benefit);//是BR中的，这个BR和我们项目中的R文件类似，都是系统自动生成的。
+        adapter = new BaseLvAdapter<>(GankActivity.this, R.layout.listview_item, benefitBeans, BR.benefit);//是BR中的，这个BR和我们项目中的R文件类似，都是系统自动生成的。
         mBinding.lv.setAdapter(adapter);
     }
 

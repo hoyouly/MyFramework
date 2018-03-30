@@ -18,7 +18,7 @@ public class Student {
 	public int age;
 	public String userface;
 
-    @BindingAdapter("bind:userface")
+    @BindingAdapter({"userface"})
     public static void getInternetImage(ImageView imageView, String userface){
         Picasso.get().load(userface).into(imageView);
     }

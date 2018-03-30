@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso;
 
 public class ImageUtils {
 
-	@BindingAdapter("bind:img")
+	@BindingAdapter({"img"})
 	public static void loadInternetImage(ImageView iv, String img) {
 		Picasso.get().load(img).into(iv);
 	}
