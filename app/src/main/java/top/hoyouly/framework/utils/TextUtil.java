@@ -12,4 +12,8 @@ public class TextUtil {
     public static  boolean isValidate(String content){
         return content!=null&&"".equals(content.trim());
     }
+    public static String doubleWord(final String word) {
+        return word+"_"+word;
+    }
+
 }

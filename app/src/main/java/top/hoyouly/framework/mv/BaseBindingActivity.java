@@ -16,9 +16,7 @@ public abstract class BaseBindingActivity<VB extends ViewDataBinding> extends Ac
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		View rootView=getLayoutInflater().inflate(this.getLayouId(),null,false);
         mBinding=DataBindingUtil.setContentView(this,getLayouId());
-//		mBinding= DataBindingUtil.bind(rootView);
 		initView();
 	}
 

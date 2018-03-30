@@ -38,18 +38,6 @@ public class RetrofitActivity extends BaseActivity implements View.OnClickListen
         content= (TextView) findViewById(R.id.content);
         btn.setOnClickListener(this);
         movieLoader=new MovieLoader();
-
-//        ProgressDialog.show(this, "标题", "加载中，请稍后……");
-        //同步请求  这里需要注意的是网络请求一定要在子线程中完成，不能直接在UI线程执行，不然会crash
-//        try {
-//            Response<MovieObject> response=call.execute();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        simpleGetRequest();
-
-
-
     }
     private void getMovieList(){
         SubscriberOnNextListener<List<Movie>> onNextListener=new SubscriberOnNextListener<List<Movie>>() {
@@ -88,11 +76,6 @@ public class RetrofitActivity extends BaseActivity implements View.OnClickListen
             }
         });
     }
-
-    private void simpleGetRequest() {
-//        Retrofit retrofit=new Retrofit.Builder().baseUrl("").addConverterFactory().build();
-    }
-
 
     @Override
     public void onClick(View view) {

@@ -22,8 +22,9 @@ public class HttpCommonInterceptor implements Interceptor {
 
 	@Override
 	public Response intercept(Chain chain) throws IOException {
-		Log.d("hoyouly", getClass().getSimpleName() + " -> intercept: ");
 		okhttp3.Request oldRequest = chain.request();
+		long t1 = System.nanoTime();
+		Log.d("hoyouly", "HttpCommonInterceptor start" + String.format("Sending request %s on %s%n%s", oldRequest.url(), chain.connection(), oldRequest.headers()));
 		//新的请求
 		Request.Builder requestBuilder = oldRequest.newBuilder();
 		requestBuilder.method(oldRequest.method(), oldRequest.body());
@@ -35,7 +36,10 @@ public class HttpCommonInterceptor implements Interceptor {
 		}
 		Request newRequest = requestBuilder.build();
 
-		return chain.proceed(newRequest);
+		Response response = chain.proceed(newRequest);
+		long t2 = System.nanoTime();
+		Log.d("hoyouly", "HttpCommonInterceptor end " + String.format("Received response for %s in %.1fms%n%s", response.request().url(), (t2 - t1) / 1e6d, response.headers()));
+		return response;
 	}
 
 	public static class Builder {

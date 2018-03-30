@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="top.hoyouly.framework.utils.TextUtil"/>
+        <variable
+            name="benefit"
+            type="top.hoyouly.framework.bean.BenefitBean"/>
+    </data>
+
+    <RelativeLayout
+        android:onClick="@{benefit.onItemClick}"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:padding="6dp"
+            app:img="@{benefit.url}"/>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/iv"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@{TextUtil.doubleWord(benefit.desc)}"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/iv"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="2dp"
+            android:text="@{benefit.who}"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+</layout>

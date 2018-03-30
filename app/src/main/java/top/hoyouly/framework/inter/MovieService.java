@@ -61,4 +61,7 @@ public interface MovieService  {
     @FormUrlEncoded
     Observable<String> getWeather(@Field("cityid") String cityid,@Field("key") String key);
 
+
+
+
 }

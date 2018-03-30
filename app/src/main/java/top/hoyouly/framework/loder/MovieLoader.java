@@ -47,6 +47,5 @@ public class MovieLoader extends BaseLoader {
 		}));
 	}
 
-	;
 
 }

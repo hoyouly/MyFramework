@@ -7,6 +7,8 @@
             type="top.hoyouly.framework.mv.viewmodel.DataBindingViewModel"/>
         
     </data>
+
+
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -14,6 +16,16 @@
         android:fitsSystemWindows="true"
         android:orientation="vertical">
 
+        <!--<include-->
+            <!--android:id="@+id/toolbar"-->
+            <!--layout="@layout/toolbar_default"/>-->
+
+        <ViewStub
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_stub"
+            android:layout="@layout/toolbar_default"
+         />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

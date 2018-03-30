@@ -1,10 +1,11 @@
 package top.hoyouly.framework.mv;
 
 import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.TextView;
+import android.view.ViewStub;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -25,13 +26,20 @@ import top.hoyouly.framework.subscriber.ProgressDialogSubscriber;
 
 public class DataBindingActivity extends BaseActivity {
 	private Translation contributor;
-	private TextView topContributor;
+	private ActivityDataBinding dataBinding;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		dataBinding = DataBindingUtil.setContentView(DataBindingActivity.this, R.layout.activity_data);
+		dataBinding.viewStub.setOnInflateListener(new ViewStub.OnInflateListener() {
+			@Override
+			public void onInflate(ViewStub stub, View inflated) {
+				ViewDataBinding viewDataBinding = DataBindingUtil.bind(inflated);
+				
+			}
+		});
 
-		ActivityDataBinding dataBinding = DataBindingUtil.setContentView(DataBindingActivity.this, R.layout.activity_data);
 	}
 
 
@@ -41,7 +49,11 @@ public class DataBindingActivity extends BaseActivity {
 
 	public void change(View view) {
 		contributor.getTranslateResult().get(0).get(0).setTgt("hello world ");
-		topContributor.setText(contributor.getTranslateResult().get(0).get(0).getTgt());
+		dataBinding.topContributor.setText(contributor.getTranslateResult().get(0).get(0).getTgt());
+//		ToolbarDefaultBinding defaultBinding= DataBindingUtil.setContentView(DataBindingActivity.this,R.layout.toolbar_default);
+
+//		defaultBinding.titleTv.setText("1111");
+
 	}
 
 	private void getTopContributor() {
@@ -59,8 +71,7 @@ public class DataBindingActivity extends BaseActivity {
 							public void onNext(Translation translation) {
 								contributor = translation;
 								String tgt = contributor.getTranslateResult().get(0).get(0).getTgt();
-								topContributor.setText(tgt);
-
+								dataBinding.topContributor.setText(tgt);
 							}
 						}, DataBindingActivity.this)
 
