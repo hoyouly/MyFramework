@@ -14,14 +14,14 @@ import java.util.List;
  * Created by hoyouly on 18-3-30.
  */
 
-public class BaseLvAdapter<T> extends BaseAdapter {
+public class CommonListviewAdapter<T> extends BaseAdapter {
 	private Context context;
 	private LayoutInflater inflater;
 	private int layoutId; //layoutId这个表示item布局的资源id
 	private int variableId;//variableId是系统自动生成的，根据我们的实体类，直接从外部传入即可
 	private List<T> list;
 
-	public BaseLvAdapter(Context context, int layoutId, List<T> list, int resId) {
+	public CommonListviewAdapter(Context context, int layoutId, List<T> list, int resId) {
 		this.context = context;
 		this.layoutId = layoutId;
 		this.list = list;

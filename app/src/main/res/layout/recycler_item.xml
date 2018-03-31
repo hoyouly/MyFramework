@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="top.hoyouly.framework.utils.TextUtil"/>
+        <variable
+            name="gankData"
+            type="top.hoyouly.framework.bean.GankDataBean"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="96dp"
+        android:onClick="@{gankData.onItemClick}"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:padding="6dp"
+            app:img="@{gankData.url}"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/iv"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="@{gankData.desc}"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/iv"
+                android:text="@{gankData.who}"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

@@ -6,45 +6,41 @@
         <import type="top.hoyouly.framework.utils.TextUtil"/>
         <variable
             name="benefit"
-            type="top.hoyouly.framework.bean.BenefitBean"/>
+            type="top.hoyouly.framework.bean.GankDataBean"/>
     </data>
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
         android:onClick="@{benefit.onItemClick}"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
             android:padding="6dp"
             app:img="@{benefit.url}"/>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:maxLines="3"
-                android:text="@{benefit.desc}"/>
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/iv"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@{TextUtil.doubleWord(benefit.desc)}"/>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:layout_marginRight="8dp"
-                android:text="@{benefit.who}"
-                android:textStyle="bold"/>
-
-        </LinearLayout>
-
-    </FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/iv"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="2dp"
+            android:text="@{benefit.who}"
+            android:textStyle="bold"/>
+    </RelativeLayout>
 </layout>

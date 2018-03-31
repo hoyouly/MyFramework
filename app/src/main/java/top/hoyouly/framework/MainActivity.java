@@ -20,9 +20,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     }
 
     public void benefit(View view) {
+        intent.setClass(MainActivity.this, BenefitActivity.class);
+        startActivity(intent);
+    }
+
+    public void android(View view){
         intent.setClass(MainActivity.this, GankActivity.class);
         startActivity(intent);
-
     }
 
 

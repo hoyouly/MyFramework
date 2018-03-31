@@ -8,5 +8,5 @@ import java.util.List;
 
 public class GankBean {
 	public boolean error;
-	public List<BenefitBean> results;
+	public List<GankDataBean> results;
 }

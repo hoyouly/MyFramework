@@ -3,10 +3,10 @@ package top.hoyouly.framework;
 import java.util.ArrayList;
 import java.util.List;
 
-import top.hoyouly.framework.adapter.BaseLvAdapter;
+import top.hoyouly.framework.adapter.CommonListviewAdapter;
 import top.hoyouly.framework.base.BaseActivity;
-import top.hoyouly.framework.bean.BenefitBean;
 import top.hoyouly.framework.bean.GankBean;
+import top.hoyouly.framework.bean.GankDataBean;
 import top.hoyouly.framework.databinding.ActivityGankBinding;
 import top.hoyouly.framework.inter.SubscriberOnNextListener;
 import top.hoyouly.framework.loder.GankLoader;
@@ -17,9 +17,9 @@ import top.hoyouly.framework.subscriber.ProgressDialogSubscriber;
  */
 
 public class GankActivity extends BaseActivity<ActivityGankBinding> {
-    private List<BenefitBean> benefitBeans=new ArrayList<BenefitBean>();
+    private List<GankDataBean> benefitBeans=new ArrayList<GankDataBean>();
     private GankLoader loader;
-    private BaseLvAdapter<BenefitBean> adapter;
+    private CommonListviewAdapter<GankDataBean> adapter;
 
     @Override
     protected void initView() {
@@ -29,7 +29,7 @@ public class GankActivity extends BaseActivity<ActivityGankBinding> {
 
     private void initData() {
         loader=new GankLoader();
-        adapter = new BaseLvAdapter<>(GankActivity.this, R.layout.listview_item, benefitBeans, BR.benefit);//是BR中的，这个BR和我们项目中的R文件类似，都是系统自动生成的。
+        adapter = new CommonListviewAdapter<>(GankActivity.this, R.layout.listview_item, benefitBeans, BR.benefit);//是BR中的，这个BR和我们项目中的R文件类似，都是系统自动生成的。
         mBinding.lv.setAdapter(adapter);
     }
 
