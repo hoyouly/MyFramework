@@ -1,11 +1,10 @@
-package top.hoyouly.framework.mv;
+package top.hoyouly.framework;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import top.hoyouly.framework.BR;
-import top.hoyouly.framework.R;
 import top.hoyouly.framework.adapter.BaseLvAdapter;
+import top.hoyouly.framework.base.BaseActivity;
 import top.hoyouly.framework.bean.BenefitBean;
 import top.hoyouly.framework.bean.GankBean;
 import top.hoyouly.framework.databinding.ActivityGankBinding;
@@ -17,7 +16,7 @@ import top.hoyouly.framework.subscriber.ProgressDialogSubscriber;
  * Created by hoyouly on 18-3-29.
  */
 
-public class GankActivity extends BaseBindingActivity<ActivityGankBinding> {
+public class GankActivity extends BaseActivity<ActivityGankBinding> {
     private List<BenefitBean> benefitBeans=new ArrayList<BenefitBean>();
     private GankLoader loader;
     private BaseLvAdapter<BenefitBean> adapter;

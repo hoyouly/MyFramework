@@ -4,7 +4,7 @@ import rx.Observable;
 import top.hoyouly.framework.base.BaseLoader;
 import top.hoyouly.framework.bean.GankBean;
 import top.hoyouly.framework.inter.GankService;
-import top.hoyouly.framework.net.GankServiceManager;
+import top.hoyouly.framework.net.RetrofitServiceManager;
 
 /**
  * Created by hoyouly on 18/3/28.
@@ -15,7 +15,7 @@ public class GankLoader extends BaseLoader {
     private GankService gankService;
 
     public GankLoader() {
-        gankService = GankServiceManager.getInstance().creat(GankService.class);
+        gankService = RetrofitServiceManager.getInstance().creat(GankService.class);
     }
 
     //定义了一个和 BookService 中同名的方法，里面其实就是调用 BookService 中的这个方法

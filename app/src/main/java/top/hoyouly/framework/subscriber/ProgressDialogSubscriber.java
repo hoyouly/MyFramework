@@ -51,6 +51,7 @@ public class ProgressDialogSubscriber<T> extends Subscriber<T> implements Progre
 	@Override
 	public void onError(Throwable e) {
 		//处理错误，同时停止ProgressDialog
+        e.printStackTrace();
 		Log.d("hoyouly", getClass().getSimpleName() + " -> onError: ");
 		dismissDialog();
 	}

@@ -1,6 +1,8 @@
 package top.hoyouly.framework.base;
 
 import android.app.Activity;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,8 +15,9 @@ import java.lang.ref.WeakReference;
  * Created by hoyouly on 18-2-9.
  */
 
-public class BaseActivity extends Activity {
-	protected  UIHandler handler;
+public abstract class BaseActivity<VB extends ViewDataBinding> extends Activity {
+    protected  VB mBinding;
+    protected  UIHandler handler;
 	protected static class UIHandler extends Handler {
 		WeakReference<BaseActivity> softReference;
 		UIHandler(BaseActivity activity){
@@ -35,15 +38,21 @@ public class BaseActivity extends Activity {
 			return softReference.get();
 		}
 	}
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mBinding= DataBindingUtil.setContentView(this,getLayouId());
+        handler=new UIHandler(this);
+        initView();
+    }
+
+    protected abstract void initView();
+
+    protected abstract int getLayouId();
+
 
 	public Handler getHandler() {
 		return handler;
-	}
-
-	@Override
-	protected void onCreate(@Nullable Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		handler=new UIHandler(this);
 	}
 
 	public void handleMessage(Message message){
