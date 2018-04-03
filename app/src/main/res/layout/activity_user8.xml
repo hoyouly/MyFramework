@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="model"
+            type="top.hoyouly.framework.bean.ViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:src="@mipmap/ic_launcher"
+            android:visibility="@{checkbox.checked?View.VISIBLE:View.GONE}"
+            android:layout_height="100dp"/>
+        <!-- 注意，直接根据CheckBox 的id 取得 checked ,然后根据这个值设置是否显示-->
+
+        <top.hoyouly.framework.view.PhilView
+            android:id="@+id/philview"
+            android:layout_width="match_parent"
+            android:background="@android:color/holo_red_light"
+            app:display="@={model.isDisplay}"
+            android:layout_height="200dp"/>
+    </LinearLayout>
+</layout>

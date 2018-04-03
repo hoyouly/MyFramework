@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="util"
+            type="top.hoyouly.framework.utils.TextUtil"/>
+
+        <variable
+            name="user"
+            type="top.hoyouly.framework.bean.User6"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->util.onMyClick(user)}"
+            android:text="按钮"/>
+
+        <!--注意TextUtil 的引入以及事件绑定的符号写法。 @{()->util.onMyClick(user)}-->
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="@={user.content}"/>
+        <!--注意 EditText 中使用的是 @=
+                TextView 中使用的是 @
+        -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.content}"
+            android:textColor="@android:color/holo_blue_bright"/>
+
+    </LinearLayout>
+</layout>

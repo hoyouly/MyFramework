@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="user"
+            type="top.hoyouly.framework.bean.User4" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(user.id)}"
+            android:textColor="@android:color/holo_red_light" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.name}"
+            android:textColor="@android:color/holo_red_light" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:img="@{user.url}" />
+
+        <!-- app:img 这个img 字段来源是你定义的 @BindingAdapter({"img"}) 中的 img-->
+        <!--user.url这个数据字段成为ImageUtils 中loadInternetImage()方法的被观察者，
+        BindingAdapter将两者绑定在一起，user.url的动态变化，直接导致loadInternetImage的调用。
+        同时，user.url将作为一个字符串变量传递给loadInternetImage方法，在imageUrl方法里面，反向的将Picasso加载的图片赋值给绑定的ImageView。-->
+
+    </LinearLayout>
+</layout>

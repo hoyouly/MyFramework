@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="user"
+            type="top.hoyouly.framework.bean.User6" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+       <EditText
+           android:layout_width="wrap_content"
+           android:text="@={user.content}"
+           android:layout_height="50dp"/>
+        <!--注意 EditText 中使用的是 @=
+                TextView 中使用的是 @
+        -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_blue_bright"
+            app:password="@{user.content}"
+            />
+
+        <top.hoyouly.framework.view.PhilTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.content}"
+            app:zhangphiltoast="@{user.content}"
+            />
+        <!--app:zhangphiltoast 中的 zhangphlittoast属性，就是与PhilTextView 中的方法showZhangPhilToast()绑定在一起的，通过
+         BindingMethods与BindingMethod定义了一个自己声明的属性：zhangphiltoast 该属性与PhilTextView中的showZhangPhilToast绑定
+         -->
+    </LinearLayout>
+</layout>
