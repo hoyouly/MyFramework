@@ -2,6 +2,7 @@ package top.hoyouly.framework;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -29,24 +30,31 @@ public class BenefitActivity extends BaseActivity<ActivityBenefitBinding> implem
 	private BenefitPersenter mPresenter;
 	private ProgressBar mProgressBar;
 	private CommonRecyclerAdapter mAdapter;
+    private RecyclerView recycleView;
 
 
-	@Override
+    @Override
 	protected void initView() {
+		mSwipeRefreshLayout = mBinding.srf;
+		mProgressBar=mBinding.gankLoading;
+        recycleView = mBinding.recycleView;
 		initData();
 	}
 
 	private void initData() {
 		mPresenter=new BenefitPerSenterImpl(this,this);
-		mSwipeRefreshLayout = mBinding.srf;
-		mProgressBar=mBinding.gankLoading;
+        mAdapter = new CommonRecyclerAdapter(BenefitActivity.this, R.layout.recycler_item, BR.gankData);
+        mAdapterWrapper = new AdapterWrapper(mAdapter);
+		recycleView.setLayoutManager(new GridLayoutManager(this, 3));
+        mLoadMoreHelper = new SwipeToLoadHelper(recycleView, mAdapterWrapper);
+        recycleView.setAdapter(mAdapterWrapper);
 
 		mSwipeRefreshLayout.setOnRefreshListener(this);
+        mLoadMoreHelper.setLoadMoreListener(this);
 
 		//        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 		//        mBinding.rvPeople.setLayoutManager(layoutManager);
 
-		mBinding.recycleView.setLayoutManager(new GridLayoutManager(this, 3));
 		mPresenter.onViewCreat();
 	}
 
@@ -76,14 +84,11 @@ public class BenefitActivity extends BaseActivity<ActivityBenefitBinding> implem
 	}
 
 	@Override
-	public void setListData(List<GankDataBean> benefitBeans) {
-		mAdapter = new CommonRecyclerAdapter(BenefitActivity.this, R.layout.recycler_item, BR.gankData);
+	public void setListData(List<GankDataBean> benefitBeans,int type) {
+        if(type!=2){
+            mAdapter.getItems().clear();
+        }
 		mAdapter.getItems().addAll(benefitBeans);
-		mAdapterWrapper = new AdapterWrapper(mAdapter);
-		mLoadMoreHelper = new SwipeToLoadHelper(mBinding.recycleView, mAdapterWrapper);
-		mLoadMoreHelper.setLoadMoreListener(this);
-
-		mBinding.recycleView.setAdapter(mAdapterWrapper);
 	}
 
 	@Override

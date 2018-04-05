@@ -29,7 +29,7 @@ public class AdapterWrapper extends RecyclerView.Adapter {
 
 
 	private RecyclerView.Adapter mAdapter;
-	private boolean mShowLoadMore = false;
+	private boolean mShowLoadMore = true;
 
 	private WrapperHolder mWrapperHolder;
 
@@ -80,7 +80,9 @@ public class AdapterWrapper extends RecyclerView.Adapter {
 	public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 		if (mShowLoadMore && position == getItemCount() - 1) {
 			//最后一项，不需要做额外的事情
-		} else if (position < getItemCount()) {//正常显示
+		} else if (position < mAdapter.getItemCount()) {//正常显示
+            // 正常情况 首先需要把item设置为VISIBLE，不然item复用的时候，会显示不出来。
+            holder.itemView.setVisibility(View.VISIBLE);
 			mAdapter.onBindViewHolder(holder, position);
 		} else {
 			//网格补空的情况
@@ -109,7 +111,7 @@ public class AdapterWrapper extends RecyclerView.Adapter {
 	@Override
 	public int getItemViewType(int position) {
 		//当显示加载更多条目，并且位置是最后一个的时候，wrapper进行拦截。
-		if (mShowLoadMore && position == mAdapter.getItemCount()) {
+		if (mShowLoadMore && position == getItemCount()-1) {
 			return ITTM_TYPE_LOAD;
 		}
 		//其他情况交给原来的Adapter处理
@@ -142,8 +144,8 @@ public class AdapterWrapper extends RecyclerView.Adapter {
 
 		public WrapperHolder(View itemView) {
 			super(itemView);
-			mLoadPb = itemView.findViewById(R.id.item_load_pb);
-			mLoadTv = itemView.findViewById(R.id.item_load_tv);
+			mLoadPb = (ProgressBar) itemView.findViewById(R.id.item_load_pb);
+			mLoadTv = (TextView) itemView.findViewById(R.id.item_load_tv);
 		}
 	}
 }

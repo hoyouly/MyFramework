@@ -41,7 +41,7 @@ public class SwipeToLoadHelper extends RecyclerView.OnScrollListener {
 
 	@Override
 	public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-		if (mIsSwipeToLoadEnabled && RecyclerView.SCROLL_STATE_IDLE == newState) {
+		if (mIsSwipeToLoadEnabled && RecyclerView.SCROLL_STATE_IDLE == newState&&!isLoading) {
 			if (mLayouManager instanceof GridLayoutManager) {
 				final GridLayoutManager gridLayoutManager = (GridLayoutManager) mLayouManager;
 				gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {

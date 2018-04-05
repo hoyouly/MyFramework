@@ -12,7 +12,7 @@ import top.hoyouly.framework.bean.GankDataBean;
 public interface BenefitView extends BaseMVPView {
 	void setPageState(boolean isLoading);
 
-	void setListData(List<GankDataBean> benefitBeans);
+	void setListData(List<GankDataBean> benefitBeans,int type);
 
 	void onRefreshComplete();
 
