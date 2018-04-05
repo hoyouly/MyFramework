@@ -10,13 +10,14 @@ import top.hoyouly.framework.bean.GankDataBean;
 import top.hoyouly.framework.databinding.ActivityGankBinding;
 import top.hoyouly.framework.inter.SubscriberOnNextListener;
 import top.hoyouly.framework.loder.GankLoader;
+import top.hoyouly.framework.persenter.BenefitPersenter;
 import top.hoyouly.framework.subscriber.ProgressDialogSubscriber;
 
 /**
  * Created by hoyouly on 18-3-29.
  */
 
-public class GankActivity extends BaseActivity<ActivityGankBinding> {
+public class GankActivity extends BaseActivity<ActivityGankBinding,BenefitPersenter> {
     private List<GankDataBean> benefitBeans=new ArrayList<GankDataBean>();
     private GankLoader loader;
     private CommonListviewAdapter<GankDataBean> adapter;
@@ -47,4 +48,11 @@ public class GankActivity extends BaseActivity<ActivityGankBinding> {
     protected int getLayouId() {
         return R.layout.activity_gank;
     }
+
+    @Override
+    protected BenefitPersenter getPersenter() {
+        return new BenefitPersenter();
+    }
+
+
 }

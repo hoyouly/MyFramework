@@ -14,20 +14,19 @@ import top.hoyouly.framework.adapter.SwipeToLoadHelper;
 import top.hoyouly.framework.base.BaseActivity;
 import top.hoyouly.framework.bean.GankDataBean;
 import top.hoyouly.framework.databinding.ActivityBenefitBinding;
-import top.hoyouly.framework.mvpview.BenefitView;
-import top.hoyouly.framework.persenter.BenefitPerSenterImpl;
 import top.hoyouly.framework.persenter.BenefitPersenter;
+import top.hoyouly.framework.mvpview.BenefitView;
 
 /**
  * Created by hoyouly on 18-3-29.
  * 福利数据对应的Activity
  */
 
-public class BenefitActivity extends BaseActivity<ActivityBenefitBinding> implements SwipeRefreshLayout.OnRefreshListener, SwipeToLoadHelper.LoaderMoreListener,BenefitView {
+public class BenefitActivity extends BaseActivity<ActivityBenefitBinding,BenefitPersenter> implements SwipeRefreshLayout.OnRefreshListener, SwipeToLoadHelper
+        .LoaderMoreListener,BenefitView {
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 	private AdapterWrapper mAdapterWrapper;
 	private SwipeToLoadHelper mLoadMoreHelper;
-	private BenefitPersenter mPresenter;
 	private ProgressBar mProgressBar;
 	private CommonRecyclerAdapter mAdapter;
     private RecyclerView recycleView;
@@ -42,7 +41,6 @@ public class BenefitActivity extends BaseActivity<ActivityBenefitBinding> implem
 	}
 
 	private void initData() {
-		mPresenter=new BenefitPerSenterImpl(this,this);
         mAdapter = new CommonRecyclerAdapter(BenefitActivity.this, R.layout.recycler_item, BR.gankData);
         mAdapterWrapper = new AdapterWrapper(mAdapter);
 		recycleView.setLayoutManager(new GridLayoutManager(this, 3));
@@ -54,7 +52,6 @@ public class BenefitActivity extends BaseActivity<ActivityBenefitBinding> implem
 
 		//        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 		//        mBinding.rvPeople.setLayoutManager(layoutManager);
-
 		mPresenter.onViewCreat();
 	}
 
@@ -64,7 +61,13 @@ public class BenefitActivity extends BaseActivity<ActivityBenefitBinding> implem
 		return R.layout.activity_benefit;
 	}
 
-	@Override
+    @Override
+    protected BenefitPersenter getPersenter() {
+        return new BenefitPersenter();
+    }
+
+
+    @Override
 	public void onRefresh() {
 		mPresenter.onRefresh();
 		// 刷新时禁用上拉加载更多
@@ -113,4 +116,5 @@ public class BenefitActivity extends BaseActivity<ActivityBenefitBinding> implem
 		mBinding.gankLoadFailedTv.setVisibility(View.VISIBLE);
 
 	}
+
 }

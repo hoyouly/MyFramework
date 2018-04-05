@@ -1,6 +1,7 @@
 package top.hoyouly.framework.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -15,9 +16,10 @@ import java.lang.ref.WeakReference;
  * Created by hoyouly on 18-2-9.
  */
 
-public abstract class BaseActivity<VB extends ViewDataBinding> extends Activity {
+public abstract class BaseActivity<VB extends ViewDataBinding,P extends BasePersenter> extends Activity implements BaseMVPView {
     protected  VB mBinding;
     protected  UIHandler handler;
+    protected  P mPresenter;
 	protected static class UIHandler extends Handler {
 		WeakReference<BaseActivity> softReference;
 		UIHandler(BaseActivity activity){
@@ -43,12 +45,15 @@ public abstract class BaseActivity<VB extends ViewDataBinding> extends Activity 
         super.onCreate(savedInstanceState);
         mBinding= DataBindingUtil.setContentView(this,getLayouId());
         handler=new UIHandler(this);
+        mPresenter =getPersenter();
+        mPresenter.attachView(this);
         initView();
     }
 
     protected abstract void initView();
 
     protected abstract int getLayouId();
+    protected abstract P getPersenter();
 
 
 	public Handler getHandler() {
@@ -59,4 +64,14 @@ public abstract class BaseActivity<VB extends ViewDataBinding> extends Activity 
 
 	}
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+    }
 }
