@@ -1,9 +1,10 @@
 package top.hoyouly.framework.persenter;
 
+import top.hoyouly.framework.base.BasePersenter;
 import top.hoyouly.framework.bean.GankBean;
+import top.hoyouly.framework.bean.GankDataBean;
 import top.hoyouly.framework.inter.SubscriberOnNextListener;
 import top.hoyouly.framework.loder.GankLoader;
-import top.hoyouly.framework.base.BasePersenter;
 import top.hoyouly.framework.mvpview.BenefitView;
 import top.hoyouly.framework.subscriber.ProgressDialogSubscriber;
 
@@ -11,7 +12,7 @@ import top.hoyouly.framework.subscriber.ProgressDialogSubscriber;
  * Created by hoyouly on 18-4-4.
  */
 
-public class BenefitPersenter extends BasePersenter<BenefitView> {
+public class BenefitPersenter extends BasePersenter<BenefitView<GankDataBean>> {
     private GankLoader mGankLoader;
     private int currentPage;
     public static final int NUM = 20;

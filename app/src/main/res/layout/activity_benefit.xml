@@ -3,7 +3,6 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="top.hoyouly.framework.BenefitActivity"/>
     </data>
 
     <RelativeLayout

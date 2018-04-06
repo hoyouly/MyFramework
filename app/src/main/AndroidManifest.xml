@@ -28,6 +28,8 @@
         </activity>
         <activity android:name=".GankActivity"/>
         <activity android:name=".BenefitActivity"/>
+        <activity android:name=".OpenApiActivity"/>
+        <activity android:name=".MeituFragment"/>
     </application>
 
 </manifest>

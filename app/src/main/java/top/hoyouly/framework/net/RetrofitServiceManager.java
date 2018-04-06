@@ -28,6 +28,8 @@ public class RetrofitServiceManager {
     private static final int DEFAULT_READ_TIME_OUT = 10;
     private Retrofit retrofit;
 
+    private static volatile RetrofitServiceManager manager;
+
     private CookieJar cookieJar=new CookieJar() {//
         @Override
         public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
@@ -40,7 +42,7 @@ public class RetrofitServiceManager {
         }
     };
 
-    public RetrofitServiceManager() {
+    public RetrofitServiceManager(String baseUrl) {
 		File httpCacheDirectory = new File(Utils.getContext().getCacheDir(), "OkHttpCache");
 		Cache cache = new Cache(httpCacheDirectory, 10 * 1024 * 1024);
 
@@ -63,14 +65,14 @@ public class RetrofitServiceManager {
         retrofit = new Retrofit.Builder()//
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())//
                 .addConverterFactory(GsonConverterFactory.create())//
-                .baseUrl(ApiConfig.GANK_DATA_BASE_URL)//
+                .baseUrl(baseUrl)//
                 .client(builder.build())//
                 .build();
 
     }
 
     private static class SingletonHolder {
-        private static final RetrofitServiceManager INSTANCE = new RetrofitServiceManager();
+        private static final RetrofitServiceManager INSTANCE = new RetrofitServiceManager(ApiConfig.GANK_DATA_BASE_URL);
     }
 
     /**
@@ -80,6 +82,17 @@ public class RetrofitServiceManager {
      */
     public static RetrofitServiceManager getInstance() {
         return SingletonHolder.INSTANCE;
+    }
+
+    public static RetrofitServiceManager getInstance(String baseUrl){
+        if(manager==null){
+            synchronized (RetrofitServiceManager.class){
+                if(manager==null){
+                    manager=new RetrofitServiceManager(baseUrl);
+                }
+            }
+        }
+        return manager;
     }
 
     /**
