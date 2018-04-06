@@ -1,5 +1,6 @@
 package top.hoyouly.framework;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,8 +15,8 @@ import top.hoyouly.framework.adapter.SwipeToLoadHelper;
 import top.hoyouly.framework.base.BaseActivity;
 import top.hoyouly.framework.bean.GankDataBean;
 import top.hoyouly.framework.databinding.ActivityBenefitBinding;
-import top.hoyouly.framework.persenter.BenefitPersenter;
 import top.hoyouly.framework.mvpview.BenefitView;
+import top.hoyouly.framework.persenter.BenefitPersenter;
 
 /**
  * Created by hoyouly on 18-3-29.
@@ -23,7 +24,7 @@ import top.hoyouly.framework.mvpview.BenefitView;
  */
 
 public class BenefitActivity extends BaseActivity<ActivityBenefitBinding,BenefitPersenter> implements SwipeRefreshLayout.OnRefreshListener, SwipeToLoadHelper
-        .LoaderMoreListener,BenefitView {
+        .LoaderMoreListener,BenefitView<GankDataBean> {
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 	private AdapterWrapper mAdapterWrapper;
 	private SwipeToLoadHelper mLoadMoreHelper;
@@ -31,16 +32,12 @@ public class BenefitActivity extends BaseActivity<ActivityBenefitBinding,Benefit
 	private CommonRecyclerAdapter mAdapter;
     private RecyclerView recycleView;
 
-
-    @Override
-	protected void initView() {
-		mSwipeRefreshLayout = mBinding.srf;
-		mProgressBar=mBinding.gankLoading;
+	@Override
+	public void initData(Bundle savedInstanceState) {
+        mSwipeRefreshLayout = mBinding.srf;
+        mProgressBar=mBinding.gankLoading;
         recycleView = mBinding.recycleView;
-		initData();
-	}
 
-	private void initData() {
         mAdapter = new CommonRecyclerAdapter(BenefitActivity.this, R.layout.recycler_item, BR.gankData);
         mAdapterWrapper = new AdapterWrapper(mAdapter);
 		recycleView.setLayoutManager(new GridLayoutManager(this, 3));
@@ -86,7 +83,9 @@ public class BenefitActivity extends BaseActivity<ActivityBenefitBinding,Benefit
 		mSwipeRefreshLayout.setVisibility(isLoading ? View.GONE : View.VISIBLE);
 	}
 
-	@Override
+
+
+    @Override
 	public void setListData(List<GankDataBean> benefitBeans,int type) {
         if(type!=2){
             mAdapter.getItems().clear();

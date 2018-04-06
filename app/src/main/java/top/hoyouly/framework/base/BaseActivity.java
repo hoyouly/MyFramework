@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
@@ -16,7 +17,7 @@ import java.lang.ref.WeakReference;
  * Created by hoyouly on 18-2-9.
  */
 
-public abstract class BaseActivity<VB extends ViewDataBinding,P extends BasePersenter> extends Activity implements BaseMVPView {
+public abstract class BaseActivity<VB extends ViewDataBinding,P extends BasePersenter> extends AppCompatActivity implements BaseMVPView {
     protected  VB mBinding;
     protected  UIHandler handler;
     protected  P mPresenter;
@@ -47,10 +48,12 @@ public abstract class BaseActivity<VB extends ViewDataBinding,P extends BasePers
         handler=new UIHandler(this);
         mPresenter =getPersenter();
         mPresenter.attachView(this);
-        initView();
+        initData(savedInstanceState);
     }
 
-    protected abstract void initView();
+    public void initData(Bundle savedInstanceState) {
+
+    }
 
     protected abstract int getLayouId();
     protected abstract P getPersenter();

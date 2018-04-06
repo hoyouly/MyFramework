@@ -8,13 +8,8 @@ import top.hoyouly.framework.databinding.ActivityMainBinding;
 import top.hoyouly.framework.base.BasePersenter;
 
 
-public class MainActivity extends BaseActivity<ActivityMainBinding,BasePersenter> {
+public class MainActivity extends BaseActivity<ActivityMainBinding, BasePersenter> {
     Intent intent = new Intent();
-
-    @Override
-    protected void initView() {
-    }
-
     @Override
     protected int getLayouId() {
         return R.layout.activity_main;
@@ -30,8 +25,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,BasePersenter
         startActivity(intent);
     }
 
-    public void android(View view){
+    public void android(View view) {
         intent.setClass(MainActivity.this, GankActivity.class);
+        startActivity(intent);
+    }
+
+    public void openapi(View view) {
+        intent.setClass(MainActivity.this, OpenApiActivity.class);
         startActivity(intent);
     }
 

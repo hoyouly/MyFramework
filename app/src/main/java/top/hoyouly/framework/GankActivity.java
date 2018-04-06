@@ -1,5 +1,7 @@
 package top.hoyouly.framework;
 
+import android.os.Bundle;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,15 +25,11 @@ public class GankActivity extends BaseActivity<ActivityGankBinding,BenefitPersen
     private CommonListviewAdapter<GankDataBean> adapter;
 
     @Override
-    protected void initView() {
-        initData();
-        getListData();
-    }
-
-    private void initData() {
+    public void initData(Bundle savedInstanceState) {
         loader=new GankLoader();
         adapter = new CommonListviewAdapter<>(GankActivity.this, R.layout.listview_item, benefitBeans, BR.benefit);//是BR中的，这个BR和我们项目中的R文件类似，都是系统自动生成的。
         mBinding.lv.setAdapter(adapter);
+        getListData();
     }
 
     private void getListData() {
