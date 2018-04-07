@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
 
-import top.hoyouly.framework.MeituFragment;
+import top.hoyouly.framework.OpenApiFragment;
 
 public class ViewPageAdapter extends FragmentPagerAdapter {
     private List<String> tabTitleList;
@@ -17,7 +17,7 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return MeituFragment.getInstance(tabTitleList.get(position));
+        return OpenApiFragment.getInstance(tabTitleList.get(position));
     }
 
     @Override

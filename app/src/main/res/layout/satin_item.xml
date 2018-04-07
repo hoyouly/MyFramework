@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="top.hoyouly.framework.utils.TextUtil"/>
+        <variable name="bean" type="top.hoyouly.framework.bean.SatinBean"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp">
+
+        <TextView
+            android:textSize="20sp"
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@{bean.text}"
+        />
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_below="@id/title"
+            android:padding="2dp"
+            android:scaleType="centerCrop"
+            app:img="@{bean.image1??bean.profile_image}"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+            <TextView
+                android:textSize="16sp"
+                android:id="@+id/created_at"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@{bean.created_at}"
+            />
+            <TextView
+                android:id="@+id/name"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:text="@{bean.name}"
+            />
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

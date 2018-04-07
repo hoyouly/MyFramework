@@ -1,11 +1,11 @@
 package top.hoyouly.framework;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import java.util.List;
@@ -15,12 +15,14 @@ import top.hoyouly.framework.adapter.CommonRecyclerAdapter;
 import top.hoyouly.framework.adapter.SwipeToLoadHelper;
 import top.hoyouly.framework.base.BaseFragment;
 import top.hoyouly.framework.bean.MeituBean;
+import top.hoyouly.framework.bean.SatinBean;
 import top.hoyouly.framework.databinding.ActivityBenefitBinding;
 import top.hoyouly.framework.databinding.ImageItemBinding;
+import top.hoyouly.framework.databinding.SatinItemBinding;
 import top.hoyouly.framework.mvpview.BenefitView;
-import top.hoyouly.framework.persenter.MeituPersenter;
+import top.hoyouly.framework.persenter.OpenApiPersenter;
 
-public class MeituFragment extends BaseFragment<ActivityBenefitBinding, MeituPersenter> implements BenefitView<MeituBean>, SwipeRefreshLayout.OnRefreshListener, SwipeToLoadHelper.LoaderMoreListener {
+public class OpenApiFragment extends BaseFragment<ActivityBenefitBinding, OpenApiPersenter> implements BenefitView, SwipeRefreshLayout.OnRefreshListener, SwipeToLoadHelper.LoaderMoreListener {
     private static final String DATA_KEY = "data_key";
     private String fragmentType;
     private RecyclerView.LayoutManager layoutManager;
@@ -28,35 +30,38 @@ public class MeituFragment extends BaseFragment<ActivityBenefitBinding, MeituPer
     private CommonRecyclerAdapter mAdapter;
     private SwipeToLoadHelper swipeToLoadHelper;
 
-    public static MeituFragment getInstance(String type) {
+    public static OpenApiFragment getInstance(String type) {
         Bundle bundle = new Bundle();
         bundle.putString(DATA_KEY, type);
-        MeituFragment fragment = new MeituFragment();
+        OpenApiFragment fragment = new OpenApiFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        fragmentType = getArguments().getString(DATA_KEY);
+    }
+
+    @Override
     public void initData(Bundle savedInstanceState) {
         super.initData(savedInstanceState);
-        fragmentType = getArguments().getString(DATA_KEY);
-        mAdapter = new CommonRecyclerAdapter<MeituBean, ImageItemBinding>(getActivity(), R.layout.image_item, BR.bean);
-
-        adapterWrapper = new AdapterWrapper(mAdapter);
+        int adapterType = AdapterWrapper.ADAPTER_TYPE_LINEAR;
         if ("美图".equals(fragmentType)) {
+            mAdapter = new CommonRecyclerAdapter<MeituBean, ImageItemBinding>(getActivity(), R.layout.image_item, BR.bean);
             layoutManager = new GridLayoutManager(getActivity(), 3);
-            adapterWrapper.setAdapterType(AdapterWrapper.ADAPTER_TYPE_GRID);
+            adapterType = AdapterWrapper.ADAPTER_TYPE_GRID;
         } else {
+            mAdapter = new CommonRecyclerAdapter<SatinBean, SatinItemBinding>(getActivity(), R.layout.satin_item, BR.bean);
             layoutManager = new LinearLayoutManager(getActivity());
-            adapterWrapper.setAdapterType(AdapterWrapper.ADAPTER_TYPE_LINEAR);
         }
-        Log.e("hoyouly", "initData: "+adapterWrapper.toString() );
-
+        adapterWrapper = new AdapterWrapper(mAdapter);
+        adapterWrapper.setAdapterType(adapterType);
         mBinding.recycleView.setLayoutManager(layoutManager);
         mBinding.recycleView.setAdapter(adapterWrapper);
         //创建 swipeToLoadHelper过程必须在RecycleView设置LayoutManager之后，
         swipeToLoadHelper = new SwipeToLoadHelper(mBinding.recycleView, adapterWrapper);
-
         swipeToLoadHelper.setLoadMoreListener(this);
 
         mBinding.srf.setOnRefreshListener(this);
@@ -69,8 +74,8 @@ public class MeituFragment extends BaseFragment<ActivityBenefitBinding, MeituPer
     }
 
     @Override
-    protected MeituPersenter getPersenter() {
-        return new MeituPersenter();
+    protected OpenApiPersenter getPersenter() {
+        return new OpenApiPersenter(fragmentType);
     }
 
     @Override
@@ -92,7 +97,7 @@ public class MeituFragment extends BaseFragment<ActivityBenefitBinding, MeituPer
     }
 
     @Override
-    public void setListData(List<MeituBean> benefitBeans, int type) {
+    public void setListData(List benefitBeans, int type) {
         if (type != 2) {
             mAdapter.getItems().clear();
         }

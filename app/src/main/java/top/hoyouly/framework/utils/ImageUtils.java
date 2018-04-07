@@ -13,7 +13,11 @@ public class ImageUtils {
 
 	@BindingAdapter({"img"})
 	public static void loadInternetImage(ImageView iv, String img) {
-		Picasso.get().load(img).into(iv);
+		Picasso.get()//
+                .load(img)
+                .centerCrop()
+                .resize(1200,)
+                .into(iv);
 	}
 
 

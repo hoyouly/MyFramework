@@ -18,16 +18,11 @@ public abstract class BaseFragment<VB extends ViewDataBinding, P extends BasePer
     protected VB mBinding;
     protected P mPresenter;
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mPresenter = getPersenter();
-        mPresenter.attachView(this);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.inflate(inflater, getLayouId(), container, false);
+        mPresenter = getPersenter();
+        mPresenter.attachView(this);
         initData(savedInstanceState);
         //这地方必须得返回的是mBinding.getRoot()不然后果很严重。。
         return mBinding.getRoot();
