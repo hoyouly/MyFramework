@@ -2,7 +2,6 @@ package top.hoyouly.framework;
 
 import android.os.Bundle;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import top.hoyouly.framework.base.BaseActivity;
@@ -18,9 +17,10 @@ public class LargeImageViewActivity extends BaseActivity {
 		LargeImageView largeImageView = findViewById(R.id.liv);
 
 		try {
-			InputStream is = getAssets().open("world_1.jpg");
+            InputStream is=getAssets().open("qm.jpg");
 			largeImageView.setInputStream(is);
-		} catch (IOException e) {
+
+        } catch (Exception e) {
 			e.printStackTrace();
 		}
 

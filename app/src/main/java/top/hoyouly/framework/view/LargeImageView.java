@@ -79,7 +79,7 @@ public class LargeImageView extends View {
 		try {
 			mDecoder = BitmapRegionDecoder.newInstance(in, false);
 			BitmapFactory.Options tmpOption = new BitmapFactory.Options();
-			tmpOption.inJustDecodeBounds = false;
+			tmpOption.inJustDecodeBounds = true;
 			BitmapFactory.decodeStream(in, null, tmpOption);
 			mImageWidth = tmpOption.outWidth;
 			mImageHeight = tmpOption.outHeight;
@@ -136,7 +136,6 @@ public class LargeImageView extends View {
 	}
 
 	private void checkWidth() {
-
 		Rect rect = mRect;
 		int imageWidth = mImageWidth;
 
@@ -148,8 +147,6 @@ public class LargeImageView extends View {
 			rect.left = 0;
 			rect.right = getWidth();
 		}
-
-
 	}
 
 }
