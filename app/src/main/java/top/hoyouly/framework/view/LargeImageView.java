@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -52,10 +53,11 @@ public class LargeImageView extends View {
 
 	@Override//里面就是根据rect拿到bitmap，然后draw了
 	protected void onDraw(Canvas canvas) {
+		Log.d("hoyouly", getClass().getSimpleName() + " -> onDraw: "+mRect.toString());
 		if (mDecoder != null) {
 			Bitmap bitmap = mDecoder.decodeRegion(mRect, options);
 			canvas.drawBitmap(bitmap, 0, 0, null);
-		}else {
+		} else {
 			super.onDraw(canvas);
 		}
 	}
@@ -104,6 +106,9 @@ public class LargeImageView extends View {
 			public boolean onMove(MoveGesutureDetector detector) {
 				int moveX = (int) detector.getMoveX();
 				int moveY = (int) detector.getMoveY();
+				Log.d("hoyouly", getClass().getSimpleName() + " -> onMove: "+mImageHeight+"   "+getHeight());
+				Log.d("hoyouly", getClass().getSimpleName() + " -> onMove: "+mImageWidth+"   "+getWidth());
+
 				if (mImageWidth > getWidth()) {
 					mRect.offset(-moveX, 0);
 					checkWidth();
@@ -114,6 +119,7 @@ public class LargeImageView extends View {
 					checkHeight();
 					invalidate();
 				}
+				Log.d("hoyouly", getClass().getSimpleName() + " -> onMove: "+mRect.toString());
 				return true;
 			}
 		});

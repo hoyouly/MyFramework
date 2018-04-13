@@ -2,6 +2,7 @@ package top.hoyouly.framework.utils;
 
 import android.content.Context;
 import android.graphics.PointF;
+import android.util.Log;
 import android.view.MotionEvent;
 
 /**
@@ -115,7 +116,7 @@ public class MoveGesutureDetector extends BaseGestureDetector {
 
 		@Override
 		public boolean onMoveBegin(MoveGesutureDetector detector) {
-			return false;
+			return true;
 		}
 
 		@Override
