@@ -1,11 +1,12 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+//Project 的build.gradle文件，也就是根目录的build.gradle文件
 buildscript {
-    repositories {
+    repositories {//代表仓库的下载来源，这里的来源是jcenter和google
         jcenter()
         google()
     }
-    dependencies {
+    dependencies {//项目以来的Gradle构建工具，但是更加具体的版本信息却是在gradle-wrapper.properties这个文件中
         classpath 'com.android.tools.build:gradle:3.0.0'
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -13,9 +14,23 @@ buildscript {
     }
 }
 
-allprojects {
+allprojects {//指所有参与构建项目的来源，也就是说我们工程里面所有模块的通用配置，，这里只规定了所有模块的都要用的jar包是从jcenter和google中获取
+    // 在allprojects标签下配置的好处就是你不需要在每个模块下的build.gradle中单独配置了。
     repositories {
         jcenter()
         google()
     }
 }
+
+// buildscript 和allprojects 的区别
+/**
+ * allprojects 用于多个项目构建，在Android中，使用多项目构建，其实就是使用多个Moudle构建，在settings.gradle中通过inclue的Moudle,
+ * 从根目录开始，一直到include进来的所有Moudle都会执行allprojects内容
+ *我们也可以通过subprojects来指定moudle和根目录的不同，也可以通过project(':moduldName'){}指定该Module自己的行为
+ *
+ * buildscript 主要是为了Gradle脚本自身的执行，获取脚本依赖插件，在Android中，我们构建脚本就是Gradle
+ *
+ * respositories也可以是根级别的，为当前项目提供所需要的依赖包，但是在Android中，这个跟allprojects中的repositories一致
+ * 同样，dependencies也可以是根级别的
+ */
+
