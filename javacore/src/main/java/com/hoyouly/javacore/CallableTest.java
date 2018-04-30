@@ -17,19 +17,16 @@ public class CallableTest {
             lise.add(future);
         }
 
-        System.out.println("集合长度： "+lise.size());
+        System.out.println("集合长度： " + lise.size());
         for (Future<Integer> future : lise) {
             int sum = 0;
-            while (future.isDone()) {//如果任务已完成，isDone返回true
-                try {
-                    sum += future.get();//get()方法得到返回值
-                    System.out.println(sum);
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-
+            while (!future.isDone()) ;//如果任务已完成，isDone返回true
+            try {
+                sum += future.get();//get()方法得到返回值
+                System.out.println(sum);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
             }
-
         }
 
     }
